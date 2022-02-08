@@ -9,28 +9,26 @@ from tkinter import messagebox
 now = datetime.datetime.now()
 #----------- importing sqlite for server side operations---------------------------------------------------------------------------------
 con = sqlite3.Connection('hm_proj.db')
-cur = con.cursor()
-cur.execute("create table if not exists hoteld(t_r number,r_r number,t_s number)")
-cur.execute("create table if not exists roomd(rn number primary key,beds number,ac varchar(10),tv varchar(10),internet varchar(10),price number(10))")
+cursor = con.cursor()
+cursor.execute("create table if not exists hoteld(t_r number,r_r number,t_s number)")
+cursor.execute("create table if not exists roomd(rn number primary key,beds number,ac varchar(10),tv varchar(10),internet varchar(10),price number(10))")
 
-#pmethod=0
+
 
 #rstatus extra column
 #for i in range (1,21):
 #cur.execute("update roomd set tv='Yes' where rn = ? ",(19,))
-cur.execute("create table if not exists payments(id number primary key,dot varchar(15),time varchar(10),amt number,method varchar(10))")
-cur.execute("create table if not exists paymentsf(id number  primary key,f_name varchar,l_name varchar,c_number varchar,email varchar , r_n number ,day varchar,month varchar,year varchar,time varchar , method varchar,totalamt varchar)")
-#cur.execute("insert into paymentsf values(1,'Shubhank','Khare','9589861196','Shubhank7673@gmail.com',2,'1','11','2018','11:20:27 PM','Cash','3500')")
-#cur.execute("alter table paymentsf add totalamt varchar")
+cursor.execute("create table if not exists payments(id number primary key,dot varchar(15),time varchar(10),amt number,method varchar(10))")
+cursor.execute("create table if not exists paymentsf(id number  primary key,f_name varchar,l_name varchar,c_number varchar,email varchar , r_n number ,day varchar,month varchar,year varchar,time varchar , method varchar,totalamt varchar)")
+
 con.commit()
-#cur.execute("drop table paymentsf")
-#cur.execute("insert into hoteld values(20,11,30)")
+
 con.commit()
-cur.execute("select * from payments")
+cursor.execute("select * from payments")
 con.commit()
-x=cur.fetchall()
+x=cursor.fetchall()
 con.commit()
-#print(x)
+
 #-----------splash_screen------------------------------------------------------------------------------------------------------------------
 sroot = Tk()
 sroot.minsize(height=516,width=1150)
@@ -50,7 +48,7 @@ def mainroot():
 	root.title("Hostel Management System")
 	#--------------seperator-------------------------------------------------------------------------------------------------------------------
 
-	sep = Frame(height=500,bd=1,relief='sunken',bg='white')
+	#sep = Frame(height=500,bd=1,relief='sunken',bg='white')
 	#sep.place(x=20,y=0)
 	#----------------Connection with printer-------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +67,7 @@ def mainroot():
 	def datetime():
 		#while(True):
 		localtime = now.strftime("%Y-%m-%d %H:%M")
-		lblInfo = Label(top_frame,font='helvetica 15',text=localtime,bg='blue',fg='white')
+		lblInfo = Label(top_frame,font='helvetica 16',text=localtime,bg='blue',fg='white')
 		#lblInfo.place(x=333,y=40)
 
 	#----------------bottom frame - hotel status and default page-------------------------------------------------------------------------------
@@ -83,14 +81,14 @@ def mainroot():
 		label = Label(b_frame,image = img ,height=400,width=1080)
 		label.image=img
 		label.place(x=0,y=0)
-		cur.execute("select * from hoteld")
-		x = cur.fetchall()
+		cursor.execute("select * from hoteld")
+		x = cursor.fetchall()
 		#print(x)
-		cur.execute("select count(rn) from roomd")
-		x = cur.fetchone()
+		cursor.execute("select count(rn) from roomd")
+		x = cursor.fetchone()
 		print (x)
-		cur.execute("select count(rn) from roomd where rstatus = 'Reserved'")
-		y = cur.fetchone()
+		cursor.execute("select count(rn) from roomd where rstatus = 'Reserved'")
+		y = cursor.fetchone()
 		print (y)
 		tor = x[0]
 		rer = y[0]
@@ -181,9 +179,9 @@ def mainroot():
 		emp1.pack()
 		emp1f.place(x=0,y=0)
 		emp1inf = Frame(b_frame,bg='White',height=122,width=300)
-		Label(emp1inf,text="Manager",bg='white',font='msserif 17 bold').place(x=60,y=0)
+		Label(emp1inf,text="Manager",bg='white',font='msserif 18 bold').place(x=60,y=0)
 		Label(emp1inf,text="Mr. Angel Jude Suarez",bg='white',fg="Grey",font='msserif 10').place(x=60,y=37)
-		Label(emp1inf,text="Extention : 025",bg='white',fg="Grey",font='msserif 10').place(x=60,y=59)
+		Label(emp1inf,text="Extention : 025",bg='white',fg="Grey",font='msserif 11').place(x=60,y=59)
 		Label(emp1inf,text="Mail : suarez081119@gmail.com",bg='white',fg="Grey",font='msserif 10').place(x=60,y=83)
 		emp1inf.pack_propagate(False)
 		emp1inf.place(x=117,y=1)
@@ -299,8 +297,8 @@ def mainroot():
 		sidebuttons.place(x=10,y=0)
 		def roomdet(rno):
 			Label(b_frame,text='Room %s'% rno,font='msserif 15',fg='white',bg='cyan4',width=10).place(x=535,y=0)
-			cur.execute("select * from roomd where rn = ?",(rno,))
-			rdata=cur.fetchall()
+			cursor.execute("select * from roomd where rn = ?",(rno,))
+			rdata=cursor.fetchall()
 			#print (rdata)
 			smf1 = Frame(b_frame,height=120,width=145,bg='white')
 			hline = Frame(b_frame,height=10,width=960,bg='cyan4')
@@ -311,9 +309,9 @@ def mainroot():
 			tr.pack(side='top')
 			smf1.pack_propagate(False)
 			smf1.place(x=129+3,y=30)
-			Label(smf1,text=str(rdata[0][1]),fg='cyan4',bg='white',font='msserif 35').pack()
+			Label(smf1,text=str(rdata[0][1]),fg='cyan4',bg='white',font='msserif 36').pack()
 			smf2 = Frame(b_frame,height=120,width=145,bg='white')
-			tr = Label(smf2,text='AC Available?',fg='white',bg='cyan4',width=100,height=2,font='msserif 15')
+			tr = Label(smf2,text='AC Available?',fg='white',bg='cyan4',width=100,height=2,font='msserif 16')
 			tr.pack(side='top')
 			smf2.pack_propagate(False)
 			smf2.place(x=140*2+5+3*2,y=30)
@@ -350,13 +348,8 @@ def mainroot():
 			Label(smf2,text=p,fg='cyan4',bg='white',font='msserif 35').pack()
 
 		roomdet(1)
-		#b1 = Button(b_frame,font='mssherif 10', text="Room 1",bg='white',fg='cyan4',width=10,command=lambda:roomdet(1))
-	    #sidebuttons.window_create("end",window=b)                                                                                                                                           
-	    #sidebuttons.insert("end", "\n")
-		'''for i in range(1,21):
-	            b = Button(b_frame,font='mssherif 10', text="Room %s" % i,bg='white',fg='cyan4',width=10,command=lambda:roomdet(i))
-	            sidebuttons.window_create("end", window=b)
-	            sidebuttons.insert("end", "\n")'''
+
+
 		sidebuttons.configure(state='disabled')
 		'''loop approach will fail when we connect database with button that's why itni mehnat'''
 		b1  = Button(b_frame,font='mssherif 10', text="Room 1", bg='white',fg='cyan4',width=10,command=lambda:roomdet(1))
@@ -418,9 +411,9 @@ def mainroot():
 		sidebuttons.window_create("end",window=b19)
 		sidebuttons.insert("end","\n")
 		sidebuttons.window_create("end",window=b20)
-		nl = Label(b_frame,text='www.itsourcecode.com',fg='blue',bg='gray91',font='msserif 8')
-		nl.place(x=955,y=310)
-		nl.tkraise()
+		#nl = Label(b_frame,text='www.itsourcecode.com',fg='blue',bg='gray91',font='msserif 8')
+		#nl.place(x=955,y=310)
+		#nl.tkraise()
 	#--------------- payments-----------------------------------------------------------------------------------------------------------------------
 
 	def payments():
@@ -444,26 +437,26 @@ def mainroot():
 
 		fl1=Frame(b_frame,height=38,width=308,bg='cyan4')
 		fl1.place(x=0,y=68)
-		l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		l1.pack()
 		fl1.pack_propagate(False)
 
 		fr1=Frame(b_frame,height=38,width=1080-308,bg='white')
 		fr1.place(x=0+308,y=68)
-		l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		fr1.pack_propagate(False)
 
 		fl2=Frame(b_frame,height=38,width=308,bg='cyan4')
 		fl2.place(x=0,y=109)
 		fl2.pack_propagate(False)
-		l1=Label(fl2,text='Time of transaction',bg='cyan4',fg='white',font='msserif 17')
+		l1=Label(fl2,text='Transaction Time',bg='cyan4',fg='white',font='msserif 17')
 		l1.pack()
 		
 		fr2=Frame(b_frame,height=38,width=1080-308,bg='white')
 		fr2.place(x=0+308,y=109)
 		fr2.pack_propagate(False)
-		l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		
 		fl3=Frame(b_frame,height=38,width=308,bg='cyan4')
@@ -475,7 +468,7 @@ def mainroot():
 		fr3=Frame(b_frame,height=38,width=1080-308,bg='white')
 		fr3.place(x=0+308,y=150)
 		fr3.pack_propagate(False)
-		l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		
 		fl4=Frame(b_frame,height=38,width=308,bg='cyan4')
@@ -487,31 +480,31 @@ def mainroot():
 		fr4=Frame(b_frame,height=38,width=1080-308,bg='white')
 		fr4.place(x=0+308,y=191)
 		fr4.pack_propagate(False)
-		l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		def getid(event=None):
 			fl1=Frame(b_frame,height=38,width=308,bg='cyan4')
 			fl1.place(x=0,y=68)
-			l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+			l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 			l1.pack()
 			fl1.pack_propagate(False)
 
 			fr1=Frame(b_frame,height=38,width=1080-308,bg='white')
 			fr1.place(x=0+308,y=68)
-			l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+			l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 			fr1.pack_propagate(False)
 
 			fl2=Frame(b_frame,height=38,width=308,bg='cyan4')
 			fl2.place(x=0,y=109)
 			fl2.pack_propagate(False)
-			l1=Label(fl2,text='Time of transaction',bg='cyan4',fg='white',font='msserif 17')
+			l1=Label(fl2,text='Transaction Time',bg='cyan4',fg='white',font='msserif 17')
 			l1.pack()
 		
 			fr2=Frame(b_frame,height=38,width=1080-308,bg='white')
 			fr2.place(x=0+308,y=109)
 			fr2.pack_propagate(False)
-			l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+			l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		
 			fl3=Frame(b_frame,height=38,width=308,bg='cyan4')
@@ -523,7 +516,7 @@ def mainroot():
 			fr3=Frame(b_frame,height=38,width=1080-308,bg='white')
 			fr3.place(x=0+308,y=150)
 			fr3.pack_propagate(False)
-			l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+			l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		
 			fl4=Frame(b_frame,height=38,width=308,bg='cyan4')
@@ -535,7 +528,7 @@ def mainroot():
 			fr4=Frame(b_frame,height=38,width=1080-308,bg='white')
 			fr4.place(x=0+308,y=191)
 			fr4.pack_propagate(False)
-			l1=Label(fl1,text='Date of transaction',bg='cyan4',fg='white',font='msserif 17')
+			l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 			idd = p_id.get()
 
 			'''fl5=Frame(b_frame,height=38,width=308,bg='cyan4')
@@ -551,13 +544,13 @@ def mainroot():
 			fr5.pack_propagate(False)
 			'''
 
-			#print (idd)
+
 	#cur.execute("create table if not exists paymentsf(id number  primary key,f_name varchar,l_name varchar,c_number varchar,email varchar , r_n number ,day varchar,month varchar,year varchar,time varchar , method varchar,totalamt varchar)")
-			cur.execute("select * from payments where id = ?",(idd,))
-			x = cur.fetchall()
+			cursor.execute("select * from payments where id = ?",(idd,))
+			x = cursor.fetchall()
 			#print(x)
-			cur.execute("select day,month,year,time,totalamt,r_n from paymentsf where id = ?",(idd,))
-			yy = cur.fetchone()
+			cursor.execute("select day,month,year,time,totalamt,r_n from paymentsf where id = ?",(idd,))
+			yy = cursor.fetchone()
 			print (yy)
 			#print (x)
 			if(yy!=None):
@@ -817,8 +810,8 @@ def mainroot():
 				messagebox.showinfo('Incomplete','Fill All the Fields marked by *')
 	#cur.execute("create table if not exists paymentsf(id number  primary key,f_name varchar,l_name varchar,c_number varchar,email varchar , r_n number ,day varchar,month varchar,year varchar,time varchar , method varchar)")
 			else :
-				cur.execute("select rstatus from roomd where rn = ?",(roomn.get(),))
-				temp = cur.fetchone()
+				cursor.execute("select rstatus from roomd where rn = ?",(roomn.get(),))
+				temp = cursor.fetchone()
 				if temp[0] == 'Reserved':
 					messagebox.showwarning('Room is Reserved','Room number '+str(roomn.get())+' is Reserved')
 				else:
@@ -827,8 +820,8 @@ def mainroot():
 					payroot.minsize(height=236,width=302)
 					payroot.configure(bg='White')
 					#global pmethod
-					cur.execute("select price from roomd where rn = (?)",(roomn.get(),))
-					rp = cur.fetchone()
+					cursor.execute("select price from roomd where rn = (?)",(roomn.get(),))
+					rp = cursor.fetchone()
 					print (rp)
 					amtpd = str(int(rp[0])*int(nod.get()))
 					Label(payroot,text='Select an option to pay '+str(int(rp[0])*int(nod.get())),font='msserif 14 bold',bg='White').place(x=0,y=0)
@@ -842,15 +835,15 @@ def mainroot():
 						if pmethod != '':
 							print (pmethod.get())
 							print ('pmethod value')
-							cur.execute("select id from paymentsf order by id desc")
-							x = cur.fetchone()
+							cursor.execute("select id from paymentsf order by id desc")
+							x = cursor.fetchone()
 							cid = int(x[0])
 							cid+=1
 							#print (cid)
 							#print (pmethod.get())
 							#cur.execute("create table if not exists paymentsf(id number  primary key,f_name varchar,l_name varchar,c_number varchar,email varchar , r_n number ,day varchar,month varchar,year varchar,time varchar , method varchar,totalamt varchar)")
-							cur.execute("insert into paymentsf values(?,?,?,?,?,?,?,?,?,?,?,?)",(cid,fn.get(),ln.get(),cn.get(),em.get(),roomn.get(),str(now.strftime("%d")),str(now.strftime("%b")),str(now.strftime("%Y")),str(now.strftime("%H:%M")),str(pmethod.get()),amtpd))
-							cur.execute("update roomd set rstatus='Reserved' where rn = ? ",(roomn.get(),))
+							cursor.execute("insert into paymentsf values(?,?,?,?,?,?,?,?,?,?,?,?)",(cid,fn.get(),ln.get(),cn.get(),em.get(),roomn.get(),str(now.strftime("%d")),str(now.strftime("%b")),str(now.strftime("%Y")),str(now.strftime("%H:%M")),str(pmethod.get()),amtpd))
+							cursor.execute("update roomd set rstatus='Reserved' where rn = ? ",(roomn.get(),))
 							messagebox.showinfo("Successful","Room Booked successfully")
 							con.commit()
 							ask = messagebox.askyesno("Successful","Payment Successful\nDo you want to print reciept ?")
@@ -869,7 +862,7 @@ def mainroot():
 			if (roomn.get() == 'Enter Room Number') or (roomn.get()==''):
 				messagebox.showerror('Entries not filled','Kindly Enter room Number')
 			else :
-				cur.execute("update roomd set rstatus='Unreserved' where rn = ? ",(roomn.get(),))
+				cursor.execute("update roomd set rstatus='Unreserved' where rn = ? ",(roomn.get(),))
 				messagebox.showinfo("Successful","Room Unreserved successfully")
 				reserve()
 				con.commit()
@@ -918,8 +911,8 @@ def mainroot():
 		listofrooms.insert(END,'Rooms of Your Choice will appear Here')
 		listofrooms.insert(END,'once you apply filter')
 		def findrooms():
-			cur.execute('select rn,price,rstatus from roomd where beds = ? and ac = ? and tv = ? and internet = ? order by price asc',((nb.get()),ac.get(),tv.get(),wifi.get()) )
-			x = cur.fetchall()
+			cursor.execute('select rn,price,rstatus from roomd where beds = ? and ac = ? and tv = ? and internet = ? order by price asc',((nb.get()),ac.get(),tv.get(),wifi.get()) )
+			x = cursor.fetchall()
 			#print (x)
 			listofrooms.delete(0,END)
 			if x == []:
@@ -941,9 +934,9 @@ def mainroot():
 		b_frame.pack_propagate(False)
 		b_frame.tkraise()
 
-		nl = Label(b_frame,text='www.itsourcecode.com',fg='blue',bg='gray91',font='msserif 8')
-		nl.place(x=955,y=310)
-		nl.tkraise()
+		#nl = Label(b_frame,text='www.itsourcecode.com',fg='blue',bg='gray91',font='msserif 8')
+		#nl.place(x=955,y=310)
+		#nl.tkraise()
 	#-------------login module----------------------------------------------------------------------------------------------------------------------
 	def login():
 		q = messagebox.askyesno("Exit","Do you really want to exit ?")
