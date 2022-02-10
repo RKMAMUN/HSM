@@ -37,10 +37,12 @@ sroot = Tk()
 sroot.minsize(height=516, width=1150)
 sroot.configure(bg='skyblue')
 #chilanka
-Label(sroot, text="Hostel Management System", font='Timesnewroman 40', bg='blue', fg='black').place(x=250, y=10)
+Label(sroot, text="Hostel Management System", font='Timesnewroman 44', bg='blue', fg='black').place(x=250, y=10)
 
 #Label(sroot,text="9589861196",font='Timesnewroman 40',bg='white',fg='grey').place(x=535,y=450)
 #----------- main project------------------------------------------------------------------------------------------------------------------
+
+
 def mainroot():
 	#sroot.destroy()
 	root = Tk()
@@ -56,14 +58,14 @@ def mainroot():
 	#sep.place(x=20,y=0)
 	#----------------Connection with printer-------------------------------------------------------------------------------------------------------------
 
-	def connectprinter():
-		os.startfile("C:/Users/TestFile.txt", "print")
+	# def connectprinter():
+	# 	os.startfile("C:/Users/TestFile.txt", "print")
 	#---------------top frame------------------------------------------------------------------------------------------------------------------
 
 	top_frame = Frame(root, height=70, width=1080, bg='skyblue')
 
 	top_frame.place(x=0, y=0)
-	tf_label = Label(top_frame, text='Hostel Management System', font='msserif 33', fg='black', bg='skyblue', height=70)
+	tf_label = Label(top_frame, text='Hostel Management System', font='msserif 34', fg='black', bg='skyblue', height=70)
 	tf_label.pack(anchor='center')
 	top_frame.pack_propagate(False)
 
@@ -81,13 +83,13 @@ def mainroot():
 		b_frame = Frame(root,height=400, width=1080, bg='gray91')
 		b_frame.place(x=0, y=120+6+20+60+11)
 		b_frame.pack_propagate(False)
-		path = "images/newbg6lf.jpg"
+		path = "images/newbackg6lf.jpg"
 		img = ImageTk.PhotoImage(Image.open(path))
 		label = Label(b_frame, image = img , height=400, width=1080)
-		label.image=img
+		label.image = img
 		label.place(x=0, y=0)
 		cursor.execute("select * from hoteld")
-		x = cursor.fetchall()
+		#x = cursor.fetchall()
 		#print(x)
 		cursor.execute("select count(rn) from roomd")
 		x = cursor.fetchone()
@@ -101,12 +103,12 @@ def mainroot():
 		avr = int(tor)-int(rer)
 		avr = str(avr)
 		#print(tor,rer,tos,avr)
-		hts = Label(b_frame, text='Hotel Status', font='msserif 15', fg='black', bg='gray91', height=1)
+		hts = Label(b_frame, text='Status Of Hotel', font='msserif 16', fg='black', bg='gray91', height=1)
 
 	#------------inner frames of bottom frame-------------------------
 
 		smf1 = Frame(b_frame, height=150, width=175, bg='white')
-		tr = Label(smf1, text='Total Rooms:', fg='white', bg='cyan4', width=100, height=2, font='helvetica 15')
+		tr = Label(smf1, text='Total Rooms:', fg='white', bg='cyan4', width=100, height=2, font='helvetica 16')
 		tr.pack(side='top')
 		smf1.pack_propagate(False)
 		smf1.place(x=0, y=30)
@@ -147,7 +149,7 @@ def mainroot():
 		smf6.pack_propagate(False)
 		smf6.place(x=915, y=30)
 		Label(smf6, text='3', fg='cyan4', bg='white', font='msserif 50').place(x=60, y=60)
-		#redf1 = Frame(b_frame,height=8,width=1080,bg='cyan4')
+
 
 		#Label(b_frame,text='==================================================================================',fg='cyan4').place(x=0,y=20)
 		redf1.place(x=0, y=22)
@@ -156,19 +158,19 @@ def mainroot():
 		#b_frame.pack_propagate(False)
 
 	#-----------------------------------------------------------------
-		nl = Label(b_frame,text='www.itsourcecode.com', fg='blue', bg='gray91', font='msserif 8')
-		nl.place(x=955, y=310)
-		nl.tkraise()
+		# nl = Label(b_frame,text='www.itsourcecode.com', fg='blue', bg='gray91', font='msserif 8')
+		# nl.place(x=955, y=310)
+		# nl.tkraise()
 
 	#-------------- Guests --------------------------------------------------------------------------------------------------------------------------
 	def staff():
 		b_frame = Frame(root, height=400, width=1080, bg='white')
-		path = "images/newbg6lf.jpg"
+		path = "images/newbackg6lf.jpg"
 		img = ImageTk.PhotoImage(Image.open(path))
 		label = Label(b_frame, image = img , height=400, width=1080)
 		label.image = img
 		label.place(x=0, y=0)
-		l = Label(b_frame, text='Details of Staff will be Available soon')
+		lbl = Label(b_frame, text='Details of Staff will be Available soon')
 		#l.place(x=180,y=0)
 		'''smf4 = Frame(b_frame,height=150,width=175,bg='white')
 		tc = Label(smf4,text='Total Customers:',fg='white',bg='cyan4',width=130,height=2,font='helvetica 15')
@@ -181,7 +183,7 @@ def mainroot():
 		path1 = "images/newman.jpg"
 		img1 = ImageTk.PhotoImage(Image.open(path1))
 		emp1 = Label(emp1f, image = img1)
-		emp1.image=img1
+		emp1.image = img1
 		emp1.pack()
 		emp1f.place(x=0,y=0)
 		emp1inf = Frame(b_frame,bg='White',height=122,width=300)
@@ -193,14 +195,14 @@ def mainroot():
 		emp1inf.place(x=117,y=1)
 
 		emp1f = Frame(b_frame)
-		path2 = "images/receptionnew.jpg"
+		path2 = "images/recepnew.jpg"
 		img2 = ImageTk.PhotoImage(Image.open(path2))
 		emp1 = Label(emp1f,image = img2)
 		emp1.image=img2
 		emp1.pack()
 		emp1f.place(x=657,y=0)
 		emp1inf = Frame(b_frame,bg='White',height=116,width=310)
-		Label(emp1inf,text="Customer Executive",bg='white',font='msserif 17 bold').place(x=45,y=0)#pack(side='top')
+		Label(emp1inf,text="Customer Executive",bg='white',font='msserif 16 bold').place(x=45,y=0)#pack(side='top')
 		Label(emp1inf,text="Ms. Mary Grace Patulada",bg='white',fg="Grey",font='msserif 10').place(x=45,y=37)
 		Label(emp1inf,text="Extention : 032",bg='white',fg="Grey",font='msserif 10').place(x=45,y=59)
 		Label(emp1inf,text="Mail : grace@gmail.com",bg='white',fg="Grey",font='msserif 10').place(x=45,y=83)
@@ -227,9 +229,9 @@ def mainroot():
 		path4 = "images/roomservicenew.jpg"
 		img4 = ImageTk.PhotoImage(Image.open(path4))
 		emp1 = Label(emp1f,image = img4)
-		emp1.image=img4
+		emp1.image = img4
 		emp1.pack()
-		emp1f.place(x=657,y=152)
+		emp1f.place(x=657, y=152)
 		emp1inf = Frame(b_frame,bg='White',height=124,width=315)
 		Label(emp1inf,text="Room Service",bg='white',font='msserif 17 bold').place(x=55,y=0)#pack(side='top')
 		Label(emp1inf,text="Ms. Charlotte Villanueva",bg='white',fg="Grey",font='msserif 10').place(x=55,y=37)
@@ -255,7 +257,7 @@ def mainroot():
 		b_frame.place(x=0,y=120+6+20+60+11)
 		b_frame.pack_propagate(False)
 		b_frame.tkraise()
-		path = "images/newbg6lf.jpg"
+		path = "images/newbackg6lf.jpg"
 		img = ImageTk.PhotoImage(Image.open(path))
 		label = Label(b_frame,image = img ,height=400,width=1080)
 		label.image=img
@@ -386,7 +388,7 @@ def mainroot():
 
 	def payments():
 		b_frame = Frame(root,height=400,width=1080,bg='gray89')
-		path = "images/newbg6lf.jpg"
+		path = "images/newbackg6lf.jpg"
 		img = ImageTk.PhotoImage(Image.open(path))
 		label = Label(b_frame,image = img ,height=400,width=1080)
 		label.image=img
@@ -411,20 +413,20 @@ def mainroot():
 
 		fr1=Frame(b_frame,height=38,width=1080-308,bg='white')
 		fr1.place(x=0+308,y=68)
-		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
+		#l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		fr1.pack_propagate(False)
 
 		fl2=Frame(b_frame,height=38,width=308,bg='cyan4')
 		fl2.place(x=0,y=109)
 		fl2.pack_propagate(False)
-		l1=Label(fl2,text='Transaction Time',bg='cyan4',fg='white',font='msserif 17')
+		#l1=Label(fl2,text='Transaction Time',bg='cyan4',fg='white',font='msserif 17')
 		l1.pack()
 		
 		fr2=Frame(b_frame,height=38,width=1080-308,bg='white')
 		fr2.place(x=0+308,y=109)
 		fr2.pack_propagate(False)
-		l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
+		#l1=Label(fl1,text='Transaction Date',bg='cyan4',fg='white',font='msserif 17')
 		#l1.pack()
 		
 		fl3=Frame(b_frame,height=38,width=308,bg='cyan4')
@@ -542,7 +544,7 @@ def mainroot():
 
 	def reserve():
 		b_frame = Frame(root,height=420,width=1080,bg='gray89')
-		path = "images/newbg6lf.jpg"
+		path = "images/newbackg6lf.jpg"
 		img = ImageTk.PhotoImage(Image.open(path))
 		label = Label(b_frame,image = img ,height=420,width=1080)
 		label.image=img
